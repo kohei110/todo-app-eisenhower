@@ -14,6 +14,7 @@ class Post(db.Model):
     title = db.Column(db.String(30), nullable=False)
     detail = db.Column(db.String(100))
     due = db.Column(db.DateTime, nullable=False)
+    user_id = db.Column(db.String(30), nullable=False)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
