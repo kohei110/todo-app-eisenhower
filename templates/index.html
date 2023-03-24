@@ -2,26 +2,34 @@
 
 {% block body %}
     <div class="container">
-        <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
         <div class="row">
-            <div class="col-sm-9">
-                Task Matrix
+            
+            <div class="col-md-4 mb-4 align-self-start"> <!-- set width to 30% on all screen sizes up to md -->
+                <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
+            </div>
+
+            <div class="col-md-8 mb-4 align-self-end justify-content-end">
+                {% set categories = ['urgent_important', 'urgent_noimportant', 'nourgent_important', 'nourgent_noimportant'] %}
                 {% for category in categories %}
-                    <div class="card mb-3">
-                        <div class="card-header">{{ category }}</div>
-                        <div class="card-body">
-                            {% for post in posts_by_category[category] %}
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h2 class="card-title">{{ post.title }}</h2>
-                                        <h3 class="card-title">{{ post.detail }}</h3>
-                                        <p>deadline：{{ post.due.date() }}</p>
-                                        <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
-                                        <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
-                                        <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{ category }}</h4>
+                            </div>
+                            <div class="card-body">
+                                {% for post in posts_by_category[category] %}
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h2 class="card-title">{{ post.title }}</h2>
+                                            <h3 class="card-title">{{ post.detail }}</h3>
+                                            <p>deadline：{{ post.due.date() }}</p>
+                                            <a class="btn btn-secondary btn-sm" href="/detail/{{ post.id }}" role="button">Detail</a>
+                                            <a class="btn btn-success btn-sm" href="/update/{{ post.id }}" role="button">Update</a>
+                                            <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
+                                        </div>
                                     </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

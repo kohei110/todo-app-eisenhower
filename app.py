@@ -23,10 +23,8 @@ def index():
         posts = Post.query.order_by(Post.due).all()
         categories = set([post.category for post in posts])
         posts_by_category = {category: [post for post in posts if post.category == category] for category in categories}
-        return render_template('index.html', posts = posts, posts_by_category=posts_by_category, categories=categories, today=date.today())
+        return render_template('index.html', posts_by_category=posts_by_category, categories=categories, today=date.today())
 
-        # posts = Post.query.order_by(Post.due).all()
-        # return render_template('index.html', posts = posts, today = date.today())
     else:
         title = request.form.get('title')
         detail = request.form.get('detail')
