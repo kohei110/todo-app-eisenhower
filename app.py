@@ -14,21 +14,27 @@ class Post(db.Model):
     title = db.Column(db.String(30), nullable=False)
     detail = db.Column(db.String(100))
     due = db.Column(db.DateTime, nullable=False)
-    user_id = db.Column(db.String(30), nullable=False)
+    category = db.Column(db.String(30), nullable=True)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
+
         posts = Post.query.order_by(Post.due).all()
-        return render_template('index.html', posts = posts, today = date.today())
+        categories = set([post.category for post in posts])
+        posts_by_category = {category: [post for post in posts if post.category == category] for category in categories}
+        return render_template('index.html', posts = posts, posts_by_category=posts_by_category, categories=categories, today=date.today())
+
+        # posts = Post.query.order_by(Post.due).all()
+        # return render_template('index.html', posts = posts, today = date.today())
     else:
         title = request.form.get('title')
         detail = request.form.get('detail')
         due = request.form.get('due')
-
+        category = request.form.get('category')        
         due = datetime.strptime(due,'%Y-%m-%d')
         
-        new_post = Post(title = title, detail = detail, due = due)
+        new_post = Post(title = title, detail = detail, due = due, category = category)
 
         db.session.add(new_post)
         db.session.commit()
@@ -62,10 +68,10 @@ def update(id):
         post.title = request.form.get('title')
         post.detail = request.form.get('detail')
         post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
+        post.category = request.form.get('category')
 
         db.session.commit()
         return redirect('/')
-
 
 if __name__ == "__main__":
     with app.app_context():

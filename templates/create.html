@@ -16,6 +16,16 @@
         <label for="due">Due : </label>
         <input type="date" name="due" required>
     </div>
+    <div class="form-group pb-3">
+        <label for="category">category : </label>
+        <select name="category" required>
+            <option value="">Please select a category</option>
+            <option value="urgent_important">urgent and important</option>
+            <option value="urgent_noimportant">urgent and noimportant</option>
+            <option value="nourgent_important">no urgent and important</option>
+            <option value="nourgent_noimportant">no urgent and no important</option>
+        </select>
+    </div>
     <a class="btn btn-outline-primary" href="/" role="button">Return</a>
     <button type="submit" class="btn btn-primary">Create</button>
 </form>
