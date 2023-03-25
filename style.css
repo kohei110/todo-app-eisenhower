@@ -1,0 +1,44 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+}
+
+.container {
+	display: flex;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.box {
+	height: 300px;
+	border: 1px solid #ccc;
+}
+
+.box-a {
+	flex-basis: 20%;
+	background-color: #f1f1f1;
+}
+
+.box-b {
+	flex-basis: 80%;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	background-color: #f9f9f9;
+}
+
+.card {
+	flex-basis: calc(50% - 20px);
+	height: 120px;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+}

@@ -1,10 +1,48 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4 align-self-start"> 
+            <a class="btn m-5 bg-light text-dark" href="/create" role="button">CREATE NEW TASK</a>
+        </div>
+        <div class="col-md-8 mb-4 align-self-end justify-content-end">
+            <div class="row">
+                {% set categories = ['urgent_important', 'urgent_noimportant', 'nourgent_important', 'nourgent_noimportant'] %}
+                {% for category in categories %}
+                    <div class="col-12 col-sm-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-light text-dark">
+                                <h4>{{ category }}</h4>
+                            </div>
+                            <div class="card-body" style="height: 200px; overflow-y: auto;">
+                                {% for post in posts_by_category[category] %}
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h2 class="card-title">{{ post.title }}</h2>
+                                            <h3 class="card-title">{{ post.detail }}</h3>
+                                            <p>deadline：{{ post.due.date() }}</p>
+                                            <a class="btn btn-secondary btn-sm mr-1" href="/detail/{{ post.id }}" role="button">Detail</a>
+                                            <a class="btn btn-success btn-sm mr-1" href="/update/{{ post.id }}" role="button">Update</a>
+                                            <a class="btn btn-danger btn-sm" href="/delete/{{ post.id }}" role="button">Delete</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- 
     <div class="container">
         <div class="row">
             
-            <div class="col-md-4 mb-4 align-self-start"> <!-- set width to 30% on all screen sizes up to md -->
+            <div class="col-md-4 mb-4 align-self-start"> 
                 <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
             </div>
 
@@ -35,5 +73,5 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
+    </div> -->
 {% endblock %}
