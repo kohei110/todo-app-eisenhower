@@ -16,7 +16,12 @@ class Post(db.Model):
     due = db.Column(db.DateTime, nullable=False)
     category = db.Column(db.String(30), nullable=True)
 
+
 @app.route('/', methods=['GET', 'POST'])
+def land():
+        return render_template('land.html')
+
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
 
@@ -38,6 +43,8 @@ def index():
         db.session.commit()
 
         return redirect('/')
+
+
 
 @app.route('/create')
 def create():
