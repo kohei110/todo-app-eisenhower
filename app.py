@@ -16,12 +16,12 @@ class Post(db.Model):
     due = db.Column(db.DateTime, nullable=False)
     category = db.Column(db.String(30), nullable=True)
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
 
 @app.route('/', methods=['GET', 'POST'])
-def land():
-        return render_template('land.html')
-
-@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
 
@@ -45,6 +45,21 @@ def index():
         return redirect('/')
 
 
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'GET':
+        return render_template('signup.html')
+    else:
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        new_user = User(email=email, password=password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect('/login')    
 
 @app.route('/create')
 def create():
