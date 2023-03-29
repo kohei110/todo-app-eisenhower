@@ -61,6 +61,21 @@ def signup():
 
         return redirect('/login')    
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(username=username).first()
+
+        if user and user.password == password:
+            return redirect('/index')
+        else:
+            return redirect('/login')
+    else:
+        return render_template('login.html')
+
 @app.route('/create')
 def create():
     return render_template('create.html')
