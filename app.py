@@ -69,6 +69,10 @@ def login():
 def create():
     return render_template('create.html')
 
+@app.route('/logout')
+def create():
+    return render_template('logout.html')
+
 @app.route('/detail/<int:id>')
 def read(id):
     post = Post.query.get(id)
